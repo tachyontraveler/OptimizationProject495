@@ -2,7 +2,7 @@
 ### By Abhijith Gopakumar and Noopur Gupta
 
 
-Since the Netflix Prize dataset is huge (about one billion data points overall), we scaled it down to be able to run in local systems. 
+Since the Netflix Prize dataset is huge (about hundred million data points overall), we scaled it down to be able to run in local systems. 
 
 At first, we tested the efficiency of a recommendation system based on user similarity matrices, in this new dataset. But it turned out that such an algorithm would require a bigger subset of the Netflix Prize dataset to predict with reliability.
 Code is provided in: similarity_matrices_reccs.ipynb
