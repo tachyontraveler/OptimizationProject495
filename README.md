@@ -12,3 +12,6 @@ Code to generate such a datasample is provided in: datagen_Netflix_data.ipynb
 (To run it for a long time in the background, it was downloaded as a python script: md_datagen.py)
 
 On this data, we ran a matrix decomposition and optimized the latent vectors. It took about 450 seconds on an average per epoch. We ran it for 20 epochs. The results are provided inside the jupyter notebook. Errors on train and test data are reducing simultaneously. 
+
+## Overall,
+The algorithm based on matrix factorization was more similar to the course content and it was optiming the error value to a minimum. So the files with highest relevancy are: matrix_factorized_reccs.ipynb and datagen_Netflix_data.ipynb
