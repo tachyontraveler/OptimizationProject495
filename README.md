@@ -1,6 +1,7 @@
 # Work on Netflix Prize Dataset for EECS 495 course project (fall,2018)
 ### By Abhijith Gopakumar and Noopur Gupta
 
+##### Explanation Video: https://youtu.be/zXyGBwTgaFg
 
 Since the Netflix Prize dataset is huge (about hundred million data points overall), we scaled it down to be able to run in local systems. 
 
