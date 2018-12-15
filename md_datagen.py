@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# ### Load Libraries
+# ## A script to sample data from the huge Netflix prize dataset so as to validate the ML algorithms within limited computational power
 
 # In[ ]:
 
@@ -17,15 +17,13 @@ import sys
 np.random.seed(7)
 
 
-# ### Defining Defaults and Common Functions
-
 # In[ ]:
 
 
-n_max_samples = 3000000
-n_custs   = 50000
-datadir = './datafiles/' 
-load_saved = False
+n_max_samples = 3000000 ## Maximum number of samples in the dataset
+n_custs   = 50000       ## Number of customers (users) to be included in the datset
+datadir = './datafiles/'   ## Directory to save and retrieve data
+load_saved = False      ## To get the initial full raw data from file current_full_data.h5
 
 
 # In[ ]:
@@ -47,11 +45,10 @@ def readh5py(hname):
     return hdata
 
 
-# ### Load Data from raw Netflix Prize file(s)
-
 # In[ ]:
 
 
+## To read raw data
 def read_data():
     initTime = datetime.now()
     if load_saved:
@@ -60,7 +57,7 @@ def read_data():
         return data
     data = []
     for filename in ['1']: #['1','2','3','4']:
-        filename = '../dataset/combined_data_'+filename+'.txt'
+        filename = datadir+'dataset/combined_data_'+filename+'.txt'
         for line in open(filename,'r').read().strip().split('\n'):
             line = line.strip()
             if line.endswith(':'):
@@ -74,17 +71,9 @@ def read_data():
     return data
 
 
-# ### Data sampling and cleaning
-
-# In[ ]:
-
-
-# Random Sampling 
+# Random sampling
 def sample_data(data):
     return data[np.random.choice(data.shape[0], n_max_samples, replace=False),:]
-
-
-# In[ ]:
 
 
 # To get indices of randomly selected movies and customers and if needed, restrict their numbers
@@ -103,23 +92,20 @@ def get_indices(data):
     return cust_ids,movie_ids
 
 
-# ## Data Load and process
-
-# #### Run only for a fresh start
-
 # In[ ]:
 
 
-OWrite ("Calling function to load data")
+# Data Load and process
+
+OWrite ("Calling function to load the full raw data")
 xtrain = read_data()
 OWrite ("Loaded full data")
 
 
-# #### Run only for a fresh start
-
 # In[ ]:
 
 
+# To limit the dataset size so that the algorithms can be run in the local systems
 xtrain = sample_data(xtrain)
 OWrite ("Sampled the data to include {} datapoints".format(n_max_samples))
 global_var_cust_ids, global_var_movie_ids = get_indices(xtrain)
@@ -129,10 +115,10 @@ np.savetxt(datadir+'final_movieids.csv',global_var_movie_ids,fmt="%i")
 OWrite ("Saved the global variables to disk")
 
 
-# ### Convert Movie and User Indices to continuous
-
 # In[ ]:
 
+
+# Convert Movie and User Indices to continuous
 
 def convert_indices(item):
     if item[0] in global_var_cust_ids:
@@ -143,11 +129,10 @@ def convert_indices(item):
     return item
 
 
-# #### Run only for a fresh start
-
 # In[ ]:
 
 
+## A parallelized system to convert non-continuous Netflix user IDs to continuous for convenience
 OWrite ("User IDs are discontinuous in this dataset. Converting indices to continuous.")
 initTime = datetime.now()
 p = Pool()
@@ -157,3 +142,4 @@ xtrain = np.array(xtrain)
 xtrain = xtrain[~np.all(xtrain == 0, axis=1)]
 OWrite ("Shape of final full data after conversion: "+str(xtrain.shape))
 saveh5py(xtrain,'converted_final_data.h5')
+
