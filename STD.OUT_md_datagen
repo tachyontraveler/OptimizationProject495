@@ -1,0 +1,12 @@
+Calling function to load data
+Time spent in data load: 0:00:57.593259
+Loaded full data
+Sampled the data to include 3000000 datapoints
+final number of customers: 50000
+final number of movies: 4499
+Listed the IDs of coustomers and movies as global variables
+Saved the global variables to disk
+User IDs are discontinuous in this dataset. Converting indices to continuous.
+Time spent on conversion: 0:10:19.918255
+Shape of final full data after conversion: (1390602, 3)
+
